@@ -31,7 +31,10 @@
       if (sizeof($_GET) > 2) {
         $STRING = "UPDATE " . $TABELLA . " SET ";
         $KEYS = array_keys($_GET);
-        for ($i = 2; $i < sizeof($_GET); $i++) {
+        for ($i = 0; $i < sizeof($_GET); $i++) {
+          if (!in_array($KEYS[$i], array("tabella", "id"))) {
+            continue;
+          }
           $STRING = $STRING . $KEYS[$i] . "='" . $_GET[$KEYS[$i]] . "'";
           if ($i < sizeof($_GET) - 1) {
             $STRING = $STRING . ", ";
