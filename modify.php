@@ -2,6 +2,7 @@
 <html>
   <head>
     <?php include 'db-config.php';?>
+    <script src='global-style.js'></script>
     <title>Gestionale CRUD - Modify</title>
   </head>
   <body>
