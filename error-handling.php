@@ -7,6 +7,9 @@
     if (!isset($errorString) || $errorString == '') {
       $errorString = "Errore Sconosciuto";
     }
+    if (!isset($errorDescription) || $errorDescription == '') {
+      $errorDescription = "Nessuna Descrizione";
+    }
     $errorID = codeFromString($errorString);
     printErrorToast($errorString, $errorDescription, $errorID);
   }
