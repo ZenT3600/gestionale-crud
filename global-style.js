@@ -31,7 +31,7 @@ window.onload = function() {
         </ul>
       </div>
     </div>
-  </nav><br style='margin: 3%'/>`
+  </nav><br style='margin: 3%; content: \" \"; display: block;'/>`
   document.body.insertAdjacentHTML("afterbegin", navbar)
 
   // Add a footer
