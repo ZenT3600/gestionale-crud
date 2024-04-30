@@ -7,7 +7,7 @@
 
     $conn = new mysqli($DBHOST, $DBUSER, $DBPASS, $DBDATABASE);
     if ($conn->connect_errno) {
-      die("DB Error");
+      showError("Errore SQL", "Connesione al DB fallita");
     }
     return $conn;
   }

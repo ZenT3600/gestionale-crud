@@ -1,29 +1,28 @@
 <!doctype html>
 <html>
   <head>
-    <?php include 'db-config.php';?>
-    <script src='global-style.js'></script>
+    <?php include 'main-imports.php';?>
     <title>Gestionale CRUD - Modify</title>
   </head>
   <body>
     <?php
       if (!isset($_GET["tabella"])) {
-          die("Catch this later (tabella is not set)");
+        showError("Parametro Mancante", "Il paramentro \"tabella\" è mancante");
       }
 
       if (!isset($_GET["id"])) {
-        die("Catch this later (id is not set)");
+        showError("Parametro Mancante", "Il paramentro \"id\" è mancante");
       }
 
       $TABELLA = $_GET["tabella"];
       if (!in_array($TABELLA, array("songs", "albums", "artist"))) {
-        die("Catch this later (tabella contains an illegal value)");
+        showError("Valore Illegale", "Il paramentro \"tabella\" contiene un valore illegale");
       }
 
       $ID = $_GET["id"];
       // https://stackoverflow.com/a/29018655
       if (strval($ID) !== strval(intval($ID))) {
-        die("Catch this later (id contains an illegal value)");
+        showError("Valore Illegale", "Il paramentro \"id\" contiene un valore illegale");
       }
 
       $conn = connectToDB();
@@ -68,7 +67,7 @@
         echo "<td><input type=submit value=OK></td></table>";
         echo "</form>";
       } else {
-        die("Catch this later (no result from query)");
+        showError("Errore SQL", "La query non ha riportato risultati");
       }
     ?>
   </body>
