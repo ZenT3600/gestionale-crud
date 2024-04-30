@@ -31,7 +31,7 @@
         $STRING = "UPDATE " . $TABELLA . " SET ";
         $KEYS = array_keys($_GET);
         for ($i = 0; $i < sizeof($_GET); $i++) {
-          if (!in_array($KEYS[$i], array("tabella", "id"))) {
+          if (in_array($KEYS[$i], array("tabella", "id"))) {
             continue;
           }
           $STRING = $STRING . $KEYS[$i] . "='" . $_GET[$KEYS[$i]] . "'";
