@@ -1,6 +1,9 @@
 // Import Bootstrap
 document.head.insertAdjacentHTML('afterbegin', '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">')
 
+// Import Tiny.css
+document.head.insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tiny.css@0/dist/light.css">')
+
 // Once the page loads...
 window.onload = function() {
   document.body.classList.add("p-4")
@@ -31,11 +34,25 @@ window.onload = function() {
   </nav><br style='margin: 3%'/>`
   document.body.insertAdjacentHTML("afterbegin", navbar)
 
-  // Add footer
+  // Add a footer
   var footer = `<footer class="flex-shrink-0 py-4 bg-body-secondary text-black" style="position: absolute; bottom: 0; left: 0; width: 100%;">
     <div class="container text-center">
       <small>Qui poi ci mettiamo i nostri nomi o quel che ci pare</small>
     </div>
   </footer>`
   document.body.insertAdjacentHTML("beforeend", footer)
+
+  // Make sure all tables don't go over the width limit
+  var tables = document.getElementsByTagName("table")
+  for (let table of tables) {
+    var tds = table.getElementsByTagName("td")
+    var size = 100 / tds.length
+    for (let td of tds) {
+      td.style.cssText += "width: " + size + "%;"
+      var children = td.getElementsByTagName("*")
+      for (let child of children) {
+        child.style.cssText += "width: 100%;"
+      }
+    }
+  }
 }
