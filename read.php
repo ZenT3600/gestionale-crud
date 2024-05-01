@@ -1,61 +1,65 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-  
-   
-    <title>Visualizzazione Dati</title>
-<?php include 'main-imports.php';?>
-</head>
+  <head>
+      <title>Gestionale CRUD - Read</title>
+      <?php include 'main-imports.php';?>
+  </head>
 
-<body>
-    <h2>Elenco delle Canzoni, Artisti e Album</h2>
+  <body>
     <?php
-  $conn = connectToDB();
+      if (!isset($_GET["tabella"])) {
+        showError("Parametro Mancante", "Il paramentro \"tabella\" è mancante");
+      }
 
-   
-    // Array delle tabelle
-    $tables = array("songs", "artist", "albums");
+      $TABELLA = $_GET["tabella"];
+      if (!in_array($TABELLA, array("songs", "albums", "artist"))) {
+        showError("Valore Illegale", "Il paramentro \"tabella\" contiene un valore illegale");
+      }
 
-    // Iterazione attraverso le tabelle
-    foreach ($tables as $table) {
-        echo "<h3>$table</h3>";
-        echo "<table>";
-        // Query per ottenere i nomi delle colonne dalla tabella corrente
-        $sql_columns = "SHOW COLUMNS FROM $table";
-        $result_columns = $conn->query($sql_columns);
+      $conn = connectToDB();
 
-        if ($result_columns->num_rows > 0) {
-            echo "<tr>";
-            // Output dei nomi delle colonne come intestazioni della tabella HTML
-            while($row_columns = $result_columns->fetch_assoc()) {
-                echo "<th>" . $row_columns["Field"] . "</th>";
-            }
-            echo "</tr>";
+      echo "<h1>Reading $TABELLA</h1>";
+      echo "<table>";
+      // Query per ottenere i nomi delle colonne dalla tabella corrente
+      $sql_columns = "SHOW COLUMNS FROM $TABELLA";
+      $result_columns = $conn->query($sql_columns);
 
-            // Query per selezionare tutti i dati dalla tabella corrente
-            $sql_data = "SELECT * FROM $table";
-            $result_data = $conn->query($sql_data);
-
-            if ($result_data->num_rows > 0) {
-                // Output dei dati in una tabella HTML
-                while($row_data = $result_data->fetch_assoc()) {
-                    echo "<tr>";
-                    foreach ($row_data as $key => $value) {
-                        echo "<td>" . $value . "</td>";
-                    }
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='" . $result_columns->num_rows . "'>Nessun dato trovato.</td></tr>";
-            }
-        } else {
-            echo "<tr><td colspan='2'>Nessuna colonna trovata nella tabella $table.</td></tr>";
+      if ($result_columns->num_rows > 0) {
+        echo "<tr>";
+        // Output dei nomi delle colonne come intestazioni della tabella HTML
+        while($row_columns = $result_columns->fetch_assoc()) {
+          echo "<th>" . $row_columns["Field"] . "</th>";
         }
-        echo "</table>";
-    }
+        echo "<th>Azioni</th>";
+        echo "</tr>";
 
-    $conn->close();
+        // Query per selezionare tutti i dati dalla tabella corrente
+        $sql_data = "SELECT * FROM $TABELLA";
+        $result_data = $conn->query($sql_data);
+
+        if ($result_data->num_rows > 0) {
+          // Output dei dati in una tabella HTML
+          while($row_data = $result_data->fetch_assoc()) {
+            echo "<tr>";
+            $idRiga = "";
+            foreach ($row_data as $key => $value) {
+              if ($key == "ID") $idRiga = $value;
+              echo "<td>" . $value . "</td>";
+            }
+            echo "<td><button onclick=\"window.location.href = 'modify.php?tabella=" . $TABELLA . "&id=" . $idRiga . "'\">Modifica</button>
+                  <button onclick=\"window.location.href = 'delete.php?tabella=" . $TABELLA . "&id=" . $idRiga . "'\">Rimuovi</button></td>";
+            echo "</tr>";
+          }
+        } else {
+          showError("Errore SQL", "La query non ha riportato risultati");
+        }
+      } else {
+        showError("Errore SQL", "La query non ha riportato risultati");
+      }
+      echo "</table>";
+
+      $conn->close();
     ?>
-</body>
+  </body>
 </html>
