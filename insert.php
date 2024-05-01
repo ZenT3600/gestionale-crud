@@ -42,6 +42,8 @@
     		$STRING=$STRING . ");";
         $conn->query($STRING);
       }
+      
+      echo "<h1>Inserting into " . $TABELLA . "</h1>";
 
       $query_string = "SELECT * FROM " . $TABELLA . ";";
       $query_result = $conn->query($query_string);
