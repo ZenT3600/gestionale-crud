@@ -1,16 +1,16 @@
 # DB Structure
 
-### Songs
+### songs
 | **ID** | **Title** | **AlbumID** | **ArtistID** | **CoverArt** | **Rating** |
 | --- | --- | --- | --- | --- | --- |
 | Integer | Text | Integer | Integer | Text (URL) | Integer |
 
-### Albums
+### albums
 | **ID** | **Title** | **ReleaseYear** | **Rating** |
 | --- | --- | --- | --- |
 | Integer | Text | Integer | Integer |
 
-### Artists
+### artist
 | **ID** | **Name** | **Description** |
 | --- | --- | --- |
 | Integer| Text | Text |
