@@ -37,7 +37,7 @@ window.onload = function() {
   // Add a footer
   var footer = `<footer class="flex-shrink-0 py-4 bg-body-secondary text-black" style="position: absolute; bottom: 0; left: 0; width: 100%;">
     <div class="container text-center">
-      <small>Qui poi ci mettiamo i nostri nomi o quel che ci pare</small>
+      <small>Andrea Massieri, Manuele Ruggiero, Philip Villanueva, Edoardo Palmieri, Matteo Leggio</small>
     </div>
   </footer>`
   document.body.insertAdjacentHTML("beforeend", footer)
